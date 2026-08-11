@@ -1,0 +1,164 @@
+:root {
+  --COLOR: #00a54f;
+}
+
+body {
+  margin-bottom: 60px;
+}
+header{
+  border-bottom: 2px solid var(--COLOR);
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+header h1 {
+  text-align: left;
+  padding-left: 25px;
+  padding-bottom: 10px;
+}
+
+.homeContainer {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.container {
+  text-align: center;
+}
+
+.navBar {
+  text-align: left;
+  align-content: center;
+  margin-top: -50px;
+  margin-left: 50%;
+  width: 50%;
+  border-bottom: 2px solid var(--COLOR);
+}
+
+.navLink {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+th {
+  width: 150px;
+  background-color: var(--COLOR);
+  padding: 1em;
+  color: white;
+  border: 1px solid #006430;
+}
+
+td {
+  border: 1px solid black;
+}
+
+.footContainer {
+  text-align: right !important;
+  background-color: var(--COLOR);
+  padding-right: 1em;
+  position: fixed;
+  bottom:0;
+  left:0;
+  right: 0;
+}
+
+a {
+  margin: 1em;
+}
+
+.orgInfo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto;
+  text-align: left;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.exportBtn {
+  margin-bottom: 10px;
+}
+
+.invTableBtn {
+  border: 2 px solid;
+  background-color: lime;
+  color: black;
+}
+.invOptionBtn {
+  border: 2 px solid;
+  background-color: aquamarine;
+  color: black;
+}
+.adminPgBtn {
+  border: 2 px solid gray;
+  background-color: black;
+  color: white;
+}
+.headerLogoutBtn {
+  border: 2 px solid green;
+  background-color: lawngreen;
+  color: black;
+}
+.headerLogoutSec {
+  text-align: left !important;
+.logDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 150px auto;
+  height: 250px;
+  width: 350px;
+  background: whitesmoke;
+  border-radius: 25px;
+  box-shadow: var(--COLOR) 0 0 15px 1px;
+}
+
+.logDiv form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchBar {
+  padding: 10px;
+  border-radius: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.tableBtn {
+  background: #00d166;
+  border-radius: 5px;
+  border: none;
+  margin-left:5px;
+  padding: 5px;
+}
+
+.tableBtn:hover {
+  background: #00f879;
+  cursor: pointer;
+}
+
+.tableBtn:active {
+  background: #006430;
+}
+
+.tableDiv {
+  margin-top: 25px;
+  margin-left: 25px;
+}
