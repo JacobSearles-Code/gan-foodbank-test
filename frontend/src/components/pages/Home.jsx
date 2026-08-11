@@ -1,8 +1,8 @@
 import logo from '../../assets/GananoqueFoodBank.png'
 import {useState} from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
+import api from "../../api.js";
 
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
 
   const loadReport = async () => {
     try {
-      await axios.get("http://localhost:3000/inventory")
+      api.get("/inventory")
       .then((response)=>{
         setInventory(()=>response.data)
       })

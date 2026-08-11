@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import api from "../../api.js";
+
 
 const LoginPg = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const LoginPg = () => {
   const handleLogin = async () => {
     try {
       console.log("test")
-      const response = await axios.post("http://localhost:3000/", loginData);
+      const response = await api.post("/", loginData);
       setLoginResponse(response.data.message);
 
       if (response.status === 201)

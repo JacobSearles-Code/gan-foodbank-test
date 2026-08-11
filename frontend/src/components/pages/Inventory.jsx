@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api.js";
 
 import InventoryEditingCard from "../pageFeatures/InventoryEditingCard.jsx";
 import InventoryCard from "../pageFeatures/InventoryCard.jsx";
 import EditItemIntForm from "../pageFeatures/EditItemIntForm.jsx";
 import EditItemStringForm from "../pageFeatures/EditItemStringForm.jsx";
 import NewOrderCard from "../pageFeatures/NewOrderCard.jsx";
+
 
 const Inventory = () => {
   //States
@@ -19,7 +20,7 @@ const Inventory = () => {
   //Db and useEffect statements
   const handleInventoryDB = async ()=>{
     try {
-      await axios.get("http://localhost:3000/inventory")
+      api.get("/inventory")
       .then((response)=>{
         setInventory(()=>response.data)
       })
@@ -34,7 +35,7 @@ const Inventory = () => {
   useEffect(()=>{
     const applyFilters = async ()=>{
       try {
-        await axios.patch("http://localhost:3000/inventoryFilters", filters)
+        await api.patch("/inventoryFilters", filters)
           .then((response)=>{
             setInventoryPostResponse(()=>response.data)
           })
@@ -90,7 +91,7 @@ const Inventory = () => {
   const handleAddNewItem = async (e) => {
     e.preventDefault();
     try {
-        await axios.post("http://localhost:3000/inventory", inventoryItemForm)
+        await api.post("/inventory", inventoryItemForm)
             .then((response)=>{
                 setInventoryPostResponse(()=>response.data)
             })
@@ -111,7 +112,7 @@ const Inventory = () => {
     //console.log(newValue)
     const item = inventory.find(item => item.item_id === currentAction[1])
     try {
-      await axios.patch(`http://localhost:3000/inventoryStock`, {item: item, newValue: newValue})
+      await api.patch(`/inventoryStock`, {item: item, newValue: newValue})
         .then((response)=>{
           setInventoryPostResponse(()=>response.data)
         })
@@ -125,7 +126,7 @@ const Inventory = () => {
     const item = inventory.find(item => item.item_id === currentAction[1])
 
     try {
-      await axios.patch(`http://localhost:3000/inventoryStringValue`, {item: item, newValue: newValue, targetValue: targetValue})
+      await api.patch(`/inventoryStringValue`, {item: item, newValue: newValue, targetValue: targetValue})
         .then((response)=>{
           setInventoryPostResponse(()=>response.data)
         })
@@ -139,7 +140,7 @@ const Inventory = () => {
     inventory.forEach(async(item)=>{
       try {
         if (item.selected){
-          await axios.delete(`http://localhost:3000/inventory/${item.item_id}`,)
+          await api.delete(`/inventory/${item.item_id}`,)
             .then((response)=>{
               setInventoryPostResponse(()=>response.data)
             })
@@ -181,7 +182,7 @@ const Inventory = () => {
   const handleSubmitNewOrder = async () => {
     try {
       console.log(newOrder)
-      await axios.post(`http://localhost:3000/orders`, {items: newOrder})
+      await api.post(`/orders`, {items: newOrder})
         .then((response)=>{
           setInventoryPostResponse(()=>response.data)
         })

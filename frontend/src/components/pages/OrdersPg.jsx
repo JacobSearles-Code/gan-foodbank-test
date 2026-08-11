@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import axios from "axios";
+import api from "../../api.js";
 
 import OrdersCard from "../pageFeatures/OrdersCard.jsx";
 
@@ -12,7 +12,7 @@ const OrdersPg = ()=>{
   //Db and useEffect statements
   const handleOrdersDB = async ()=>{
     try {
-      await axios.get("http://localhost:3000/orders")
+      await api.get("/orders")
       .then((response)=>{
         //console.log(response.data)
         setOrders(response.data.db)
@@ -44,7 +44,7 @@ const OrdersPg = ()=>{
 
   const handleRecieveOrder = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/ordersOld`, {group_id: groupId, order_id: id})
+      await api.patch(`/ordersOld`, {group_id: groupId, order_id: id})
       .then((response)=>{
         setDbResponse(response.data)
       })
@@ -54,7 +54,7 @@ const OrdersPg = ()=>{
   }
   const updateOrderItems = async (id)=>{
     try {
-      await axios.get(`http://localhost:3000/orders/${id}`)
+      await api.get(`/orders/${id}`)
       .then((response)=>{
         setCurrentOrderGroup(response.data.items)
         console.log(response.data)

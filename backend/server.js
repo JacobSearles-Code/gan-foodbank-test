@@ -3,7 +3,7 @@ import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import Database from 'better-sqlite3'
 import bcrypt from 'bcrypt'
-import * as db from './dbFunctions.js'
+import * as db from '../gan-foodbank-api/src/dbFunctions.js'
 import fs from 'fs'
 
 //Express

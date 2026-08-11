@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api.js";
 
 const InventoryCount = () => {
     const [inventory, setInventory] = useState([])
@@ -11,7 +11,7 @@ const InventoryCount = () => {
 
         //console.log(filters.nameFilter != "")
         try {
-            await axios.get("http://localhost:3000/inventory")
+            await api.get("/inventory")
                 .then((response)=>{
                     setInventory(()=>response.data)
                 })
@@ -31,7 +31,7 @@ const InventoryCount = () => {
         const applyFilters = async ()=>{
             console.log(filters)
             try {
-                await axios.patch("http://localhost:3000/inventoryFilters", filters)
+                await api.patch("/inventoryFilters", filters)
                     .then((response)=>{
                         setInventoryPostResponse(()=>response.data)
                     })
