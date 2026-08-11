@@ -91,27 +91,28 @@ a {
 }
 
 .invTableBtn {
-  border: 2 px solid;
+  border: 2px solid;
   background-color: lime;
   color: black;
 }
 .invOptionBtn {
-  border: 2 px solid;
+  border: 2px solid;
   background-color: aquamarine;
   color: black;
 }
 .adminPgBtn {
-  border: 2 px solid gray;
+  border: 2px solid gray;
   background-color: black;
   color: white;
 }
 .headerLogoutBtn {
-  border: 2 px solid green;
+  border: 2px solid green;
   background-color: lawngreen;
   color: black;
 }
 .headerLogoutSec {
   text-align: left !important;
+}
 .logDiv {
   display: flex;
   justify-content: center;
