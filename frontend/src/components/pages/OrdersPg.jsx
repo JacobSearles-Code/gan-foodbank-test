@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
 
-import OrdersCard from "../pageFeatures/OrdersCard";
+import OrdersCard from "../pageFeatures/OrdersCard.jsx";
 
 const OrdersPg = ()=>{
   const [orders, setOrders] = useState([])

@@ -1,5 +1,5 @@
 import Database from 'better-sqlite3'
-import * as Schema from  './dbSchema.js'
+import * as Schema from './dbSchema.js'
 
 //create db object when module is loaded (file is created if it doesn't exist)
 const db = new Database('GanFB.db')

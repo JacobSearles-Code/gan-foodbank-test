@@ -1,4 +1,4 @@
-import UserCard from "./UserCard"
+import UserCard from "./UserCard.jsx"
 
 const UserContainer = ({users, prepAction}) => {
     return (

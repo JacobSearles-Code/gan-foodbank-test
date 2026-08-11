@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import InventoryEditingCard from "../pageFeatures/InventoryEditingCard";
-import InventoryCard from "../pageFeatures/InventoryCard";
-import EditItemIntForm from "../pageFeatures/EditItemIntForm";
-import EditItemStringForm from "../pageFeatures/EditItemStringForm";
-import NewOrderCard from "../pageFeatures/NewOrderCard";
+import InventoryEditingCard from "../pageFeatures/InventoryEditingCard.jsx";
+import InventoryCard from "../pageFeatures/InventoryCard.jsx";
+import EditItemIntForm from "../pageFeatures/EditItemIntForm.jsx";
+import EditItemStringForm from "../pageFeatures/EditItemStringForm.jsx";
+import NewOrderCard from "../pageFeatures/NewOrderCard.jsx";
 
 const Inventory = () => {
   //States

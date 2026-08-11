@@ -4,9 +4,9 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
-import UserContainer from "../pageFeatures/UserContainer";
-import AddUserForm from "../pageFeatures/AddUserForm";
-import EditUserForm from "../pageFeatures/EditUserForm";
+import UserContainer from "../pageFeatures/UserContainer.jsx";
+import AddUserForm from "../pageFeatures/AddUserForm.jsx";
+import EditUserForm from "../pageFeatures/EditUserForm.jsx";
 
 const AdminPg = () => {
   const [users, setUsers] = useState([])

@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Home from './components/pages/Home'
-import LoginPg from './components/pages/LoginPg'
-import AdminPg from './components/pages/AdminPg'
-import Inventory from './components/pages/Inventory'
-import OrdersPg from './components/pages/OrdersPg'
+import Home from './components/pages/Home.jsx'
+import LoginPg from './components/pages/LoginPg.jsx'
+import AdminPg from './components/pages/AdminPg.jsx'
+import Inventory from './components/pages/Inventory.jsx'
+import OrdersPg from './components/pages/OrdersPg.jsx'
 import Layout from "./components/pageFeatures/layout.jsx";
 import ProtectedRoute from "./components/pageFeatures/protectroute.jsx";
 import './styles/App.css'
