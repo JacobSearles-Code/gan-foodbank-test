@@ -7,7 +7,6 @@ const EditItemIntForm = ({item, inventoryItemForm, handleOnChangeItemForm, handl
                     type="number"
                     id="stock"
                     name="stock"
-                    placeholder="Item stock"
                     value={inventoryItemForm}
                     onChange={handleOnChangeItemForm}
                 />
