@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
+import api from "../../api.js";
 
 import UserContainer from "../pageFeatures/UserContainer.jsx";
 import AddUserForm from "../pageFeatures/AddUserForm.jsx";
@@ -29,7 +29,7 @@ const AdminPg = () => {
 
   const handleUserDB = async ()=>{
     try {
-      await axios.get("http://localhost:3000/users")
+      await api.get("/users")
       .then((response)=>{
         setUsers(()=>response.data)
       })
@@ -52,8 +52,8 @@ const AdminPg = () => {
   const handleOnSubmitUser = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .post("http://localhost:3000/users", userForm)
+      await api
+        .post("/users", userForm)
         .then((response) => {
           setUserPostResponse(response.data)
         })
@@ -66,8 +66,8 @@ const AdminPg = () => {
   const handleOnSubmitEditedUser = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .patch("http://localhost:3000/users", userForm)
+      await api
+        .patch("/users", userForm)
         .then((response) => {
           setUserPostResponse(response.data)
         })
@@ -80,8 +80,8 @@ const AdminPg = () => {
   const handleOnDeleteUser = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .delete(`http://localhost:3000/users/${userForm.id}`)
+      await api
+        .delete(`/users/${userForm.id}`)
         .then((response) => {
           setUserPostResponse(response.data)
         })
@@ -95,7 +95,7 @@ const AdminPg = () => {
     <div className="container">
       <title>Admin</title>
       
-      <h1>Welcome back {userData.name}</h1>
+      <h1>Welcome back {userData?.first_name}</h1>
       <button onClick={()=>setCurrentAction("add")} >Add User</button>
       {currentAction === "add" && <AddUserForm handleOnChangeUser={handleOnChangeUser} handleOnSubmitUser={handleOnSubmitUser} newUser={userForm} /> }
       {currentAction === "edit" && <EditUserForm handleOnChangeUser={handleOnChangeUser} handleOnSubmitEditedUser={handleOnSubmitEditedUser} user={userForm} /> }

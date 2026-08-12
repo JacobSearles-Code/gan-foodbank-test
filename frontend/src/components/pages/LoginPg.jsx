@@ -19,28 +19,46 @@ const LoginPg = () => {
       return{...prevData, [e.target.name]: e.target.value};
     })
   }
+
   const handleOnSubmitLogin = (e) => {
     e.preventDefault()
     handleLogin()
     setLoginData({name: "",password: ""})
   }
+
   const handleLogin = async () => {
     try {
-      console.log("test")
       const response = await api.post("/", loginData);
+
+      console.log("LOGIN RESPONSE:", response);
+      console.log("TOKEN:", response.data.token);
+
       setLoginResponse(response.data.message);
 
-      if (response.status === 201)
-      {
+      if (response.status === 200) {
+        Cookies.set(
+            "jwt-authorization",
+            response.data.token
+        );
+
+        console.log(
+            "COOKIE:",
+            Cookies.get("jwt-authorization")
+        );
+
         navigate("/home");
-        Cookies.set("jwt-authorization", response.data.token);
       }
 
     } catch (err) {
-      console.log(err)
-    }
+      console.error("LOGIN ERROR:", err);
+      console.error("RESPONSE:", err.response?.data);
 
-  }
+      setLoginResponse(
+          err.response?.data?.message ||
+          "Unable to connect to the server."
+      );
+    }
+  };
 
   return (
     <div className="logDiv">

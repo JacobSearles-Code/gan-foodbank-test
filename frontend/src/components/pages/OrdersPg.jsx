@@ -1,98 +1,141 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import api from "../../api.js";
 
 import OrdersCard from "../pageFeatures/OrdersCard.jsx";
 
-const OrdersPg = ()=>{
-  const [orders, setOrders] = useState([])
-  const [groupId, setGroupId] = useState(0)
-  const [currentOrderGroup, setCurrentOrderGroup] = useState([])
-  //const [orderItems, setOrderItems] = useState([])
-  const [dbResponse, setDbResponse] = useState("")
-  //Db and useEffect statements
-  const handleOrdersDB = async ()=>{
+const OrdersPg = () => {
+  const [orders, setOrders] = useState([]);
+  const [groupId, setGroupId] = useState("");
+  const [currentOrderGroup, setCurrentOrderGroup] = useState([]);
+  const [dbResponse, setDbResponse] = useState("");
+
+  //
+  // Load all orders
+  //
+  const handleOrdersDB = async () => {
     try {
-      await api.get("/orders")
-      .then((response)=>{
-        //console.log(response.data)
-        setOrders(response.data.db)
-        //setCurrentOrderGroup(response.data.currentGroup)
-        setGroupId(response.data.currentGroup)
-      })
-    } catch(error) {
-      console.log(error.message)
+      const response = await api.get("/orders");
+
+      setOrders(response.data);
+
+      // Automatically select the first order
+      if (response.data.length > 0) {
+        const firstOrder = response.data[0];
+
+        setGroupId(firstOrder.order_id);
+        setCurrentOrderGroup(firstOrder.items || []);
+      } else {
+        setGroupId("");
+        setCurrentOrderGroup([]);
+      }
+
+    } catch (error) {
+      console.log(error.message);
     }
-    //console.log(orders[currentOrderGroup].order_items)
-  }
-  /*
-  
-  */
-  
+  };
+
+  //
+  // Load orders when page opens
+  //
   useEffect(() => {
-    handleOrdersDB()
-  }, [dbResponse])
-  //useEffect(()=>{
-  //  updateOrderItems()
-  //}, [groupId])
+    handleOrdersDB();
+  }, [dbResponse]);
 
+  //
+  // Change selected order
+  //
   const handleOnChangeOrderGroup = (e) => {
-    setGroupId(e.target.value)
-    //setCurrentOrderGroup(orders[e.target.value].order_items)
-    updateOrderItems(e.target.value)
-    console.log(currentOrderGroup)
-  }
+    const id = Number(e.target.value);
 
+    setGroupId(id);
+
+    const selectedOrder = orders.find(
+      (order) => order.order_id === id
+    );
+
+    if (selectedOrder) {
+      setCurrentOrderGroup(
+        selectedOrder.items || []
+      );
+    } else {
+      setCurrentOrderGroup([]);
+    }
+  };
+
+  //
+  // Receive order
+  //
   const handleRecieveOrder = async (id) => {
     try {
-      await api.patch(`/ordersOld`, {group_id: groupId, order_id: id})
-      .then((response)=>{
-        setDbResponse(response.data)
-      })
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-  const updateOrderItems = async (id)=>{
-    try {
-      await api.get(`/orders/${id}`)
-      .then((response)=>{
-        setCurrentOrderGroup(response.data.items)
-        console.log(response.data)
-      })
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
+      const response = await api.patch(
+        `/orders/${groupId}`,
+        {
+          receivedDate: new Date()
+            .toISOString()
+            .split("T")[0],
 
-  return (<div>
-    
-    <form action="">
-        <select name="orderGroup" id="orderGroup" onChange={handleOnChangeOrderGroup} >
-          {orders.map((group)=>(
-              <option key={group.order_id} value={group.index}>Group {group.order_id}</option>
-            ))}
+          status: 2,
+
+          items: currentOrderGroup,
+        }
+      );
+
+      setDbResponse(response.data);
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <div>
+      <form>
+        <select
+          name="orderGroup"
+          id="orderGroup"
+          value={groupId}
+          onChange={handleOnChangeOrderGroup}
+        >
+          {orders.map((order) => (
+            <option
+              key={order.order_id}
+              value={order.order_id}
+            >
+              Group {order.order_id}
+            </option>
+          ))}
         </select>
-    </form>
-    <table>
+      </form>
+
+      <table>
         <thead>
-            <tr><th>id</th><th>item</th><th>amount</th></tr>
+          <tr>
+            <th>id</th>
+            <th>item</th>
+            <th>amount</th>
+          </tr>
         </thead>
+
         <tbody>
+          {currentOrderGroup.length > 0 ? (
+            currentOrderGroup.map((order) => (
+              <OrdersCard
+                key={order.id}
+                {...order}
+                handleRecieveOrder={handleRecieveOrder}
+              />
+            ))
+          ) : (
             <tr>
-            <td>orders_id</td>
-            <td>name</td>
-            <td>amount</td>
+              <td colSpan="3">
+                No items in this order
+              </td>
             </tr>
-            {currentOrderGroup.length > 0 && currentOrderGroup.map((order)=>(
-                <OrdersCard key={order.id} {...order} handleRecieveOrder={handleRecieveOrder} />
-            ))}
+          )}
         </tbody>
-    </table>
-  </div>)
-}
-export default OrdersPg
-/*
-{PageHeader, Link, AuthenticationChecker, currentUser, updateUser}
-<PageHeader Link={Link} user={currentUser} />
-    <AuthenticationChecker updateUser={updateUser} />
-*/
+      </table>
+    </div>
+  );
+};
+
+export default OrdersPg;
