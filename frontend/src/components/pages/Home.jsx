@@ -1,5 +1,5 @@
 import logo from '../../assets/GananoqueFoodBank.png'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
 import api from "../../api.js";
@@ -27,8 +27,9 @@ const Home = () => {
     if (token) {
         userData = jwtDecode(token)
     }
-
+useEffect( () => {
   loadReport()
+}, [])
 
   return(
     <div className="homeContainer">
