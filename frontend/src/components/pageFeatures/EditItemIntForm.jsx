@@ -7,7 +7,7 @@ const EditItemIntForm = ({item, inventoryItemForm, handleOnChangeItemForm, handl
                     type="number"
                     id="stock"
                     name="stock"
-                    value={inventoryItemForm}
+                    value={inventoryItemForm.stock}
                     onChange={handleOnChangeItemForm}
                 />
                 <button className="tableBtn" type="submit" formAction={()=>handleOnSubmitStockEdit(parseInt(item.stock) - parseInt(inventoryItemForm.stock))} >Subtract</button>
